@@ -40,10 +40,13 @@
     header h1 {
       font-size: 1.5rem;
       font-weight: bold;
+      margin-right: 20px;
     }
 
     nav {
       display: flex;
+      justify-content: space-between;
+      flex-wrap: nowrap;
     }
 
     nav a {
@@ -161,6 +164,13 @@
       font-size: 0.9rem;
     }
 
+    footer nav {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
     footer a {
       color: #fffffc;
     }
@@ -271,8 +281,8 @@
     <p>ページ閲覧回数: <span id="pageViews">0</span></p>
     <p>現在時刻: <span id="currentTime"></span></p>
     <nav>
-      <a href="#">ホーム</a> | 
-      <a href="#">サービス</a> | 
+      <a href="#">ホーム</a>
+      <a href="#">サービス</a>
       <a href="#">お問い合わせ</a>
     </nav>
     <p>制作者: アンの社畜D</p>
