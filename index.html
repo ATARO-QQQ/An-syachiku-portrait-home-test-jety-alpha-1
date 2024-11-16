@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レスポンシブデザインのページ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* ヘッダーのスタイル */
+        header {
+            background-color: #180614;
+            color: #fffffc;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 10px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .menu a {
+            color: #fffffc;
+            text-decoration: none;
+            font-size: 1em;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #fffffc;
+        }
+
+        /* メニューバーが表示される際のスタイル */
+        .menu.active {
+            display: block;
+        }
+
+        /* クルーセル */
+        .carousel {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+            margin-top: 80px; /* ヘッダーの下に表示するため */
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            transition: transform 0.5s ease;
+            position: relative;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .carousel-controls button {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            padding: 10px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* フッターのスタイル */
+        footer {
+            background-color: #180614;
+            color: #fffffc;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        footer .info {
+            font-size: 0.9em;
+        }
+
+        /* レスポンシブデザイン */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.2em;
+            }
+
+            .menu {
+                display: none;
+            }
+
+            .menu.active {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .carousel-item {
+                width: 80%; /* スマホでは幅を狭く */
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1em;
+            }
+
+            .carousel {
+                margin-top: 60px; /* ヘッダーの高さを考慮 */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <h1>レスポンシブサイト</h1>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <div class="menu">
+            <a href="#">ホーム</a>
+            <a href="#">サービス</a>
+            <a href="#">会社概要</a>
+            <a href="#">お問い合わせ</a>
+        </div>
+    </nav>
+</header>
+
+<!-- クルーセル -->
+<div class="carousel">
+    <div class="carousel-item">
+        <a href="https://example.com/link1">
+            <img src="https://via.placeholder.com/1200x300" alt="スライド1">
+        </a>
+    </div>
+    <div class="carousel-item">
+        <a href="https://example.com/link2">
+            <img src="https://via.placeholder.com/1200x300" alt="スライド2">
+        </a>
+    </div>
+    <div class="carousel-item">
+        <a href="https://example.com/link3">
+            <img src="https://via.placeholder.com/1200x300" alt="スライド3">
+        </a>
+    </div>
+    <div class="carousel-item">
+        <a href="https://example.com/link4">
+            <img src="https://via.placeholder.com/1200x300" alt="スライド4">
+        </a>
+    </div>
+    <div class="carousel-controls">
+        <button onclick="moveCarousel(-1)">❮</button>
+        <button onclick="moveCarousel(1)">❯</button>
+    </div>
+</div>
+
+<main>
+    <section>
+        <h2>本文タイトル</h2>
+        <p>こちらはコンテンツのサンプルです。本文の大きさもレスポンシブに調整されます。</p>
+    </section>
+</main>
+
+<!-- フッター -->
+<footer>
+    <p class="info">
+        ページ閲覧回数: <span id="viewCount">0</span><br>
+        現在時刻: <span id="currentTime"></span><br>
+        制作者: アンの社畜D
+    </p>
+</footer>
+
+<script>
+    // メニューのトグル
+    function toggleMenu() {
+        const menu = document.querySelector('.menu');
+        menu.classList.toggle('active');
+    }
+
+    // クルーセルの操作
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-item');
+
+    function moveCarousel(direction) {
+        currentSlide = (currentSlide + direction + slides.length) % slides.length;
+        const offset = -currentSlide * 100;
+        slides.forEach(slide => {
+            slide.style.transform = `translateX(${offset}%)`;
+        });
+    }
+
+    // ページ閲覧回数をカウント
+    let viewCount = localStorage.getItem('viewCount') ? parseInt(localStorage.getItem('viewCount')) : 0;
+    viewCount++;
+    localStorage.setItem('viewCount', viewCount);
+    document.getElementById('viewCount').textContent = viewCount;
+
+    // 現在時刻を表示
+    function updateTime() {
+        const now = new Date();
+        const timeString = now.toLocaleString();
+        document.getElementById('currentTime').textContent = timeString;
+    }
+
+    setInterval(updateTime, 1000);
+    updateTime();
+</script>
+
+</body>
+</html>
