@@ -87,6 +87,7 @@
             overflow: hidden;
             width: 100%;
             margin-top: 80px; /* ヘッダーの高さ分だけ余白 */
+            position: relative;
         }
         .carousel-item {
             min-width: 100%;
@@ -245,20 +246,30 @@
     // クルーセル機能
     let currentSlide = 0;
     const slides = document.querySelectorAll('.carousel-item');
-    
+    const totalSlides = slides.length;
+
     function updateSlide() {
         const offset = -currentSlide * 100;
         document.querySelector('.carousel').style.transform = `translateX(${offset}%)`;
     }
 
     function nextSlide() {
-        currentSlide = (currentSlide + 1) % slides.length;
+        currentSlide = (currentSlide + 1) % totalSlides;
         updateSlide();
     }
 
     function prevSlide() {
-        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
         updateSlide();
+    }
+
+    // 自動スライド
+    let autoSlideInterval = setInterval(nextSlide, 5000); // 5秒ごとに次のスライドに移動
+
+    // ページを操作した場合、自動スライドをリセット
+    function resetAutoSlide() {
+        clearInterval(autoSlideInterval);
+        autoSlideInterval = setInterval(nextSlide, 5000);
     }
 
     // ページ閲覧回数
