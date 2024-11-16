@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Responsive Page</title>
+  <title>ナマイキスタジオ</title>
   <style>
-    /* 共通の基本スタイル */
-    body {
+    /* 基本のスタイル */
+    body, html {
       margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
-      line-height: 1.6;
     }
 
-    h1, h2, p {
+    h1, h2, h3 {
       margin: 0;
       padding: 0;
     }
@@ -26,89 +26,130 @@
     header {
       background-color: #180614;
       color: #fffffc;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
       padding: 10px 20px;
-      z-index: 10;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     header h1 {
-      font-size: 1.6em;
-      margin: 0;
+      font-size: 1.5rem;
+      font-weight: bold;
     }
 
-    /* メニューバー */
     nav {
       display: flex;
-      gap: 15px;
     }
 
     nav a {
+      margin-left: 20px;
+      font-size: 1rem;
+      padding: 10px;
       color: #fffffc;
-      font-size: 1.2em;
-      padding: 5px 10px;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s;
     }
 
     nav a:hover {
-      background-color: #f1c6d9;
-      border-radius: 5px;
+      background-color: #444;
     }
 
-    /* メニュートグル（モバイル用） */
     .menu-toggle {
       display: none;
-      flex-direction: column;
-      gap: 5px;
       cursor: pointer;
+      font-size: 1.5rem;
+      color: #fffffc;
     }
 
-    .menu-toggle div {
-      width: 30px;
-      height: 5px;
-      background-color: #fff;
-      border-radius: 5px;
+    /* レスポンシブメニュー */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #180614;
+        width: 200px;
+        box-shadow: -2px 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      nav a {
+        margin-left: 0;
+        padding: 10px;
+        text-align: right;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav.active {
+        display: flex;
+      }
     }
 
     /* クルーセル */
     .carousel {
       margin-top: 80px;
+      position: relative;
       display: flex;
       overflow: hidden;
-      position: relative;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .carousel-items {
+      display: flex;
+      transition: transform 0.5s ease;
     }
 
     .carousel-item {
       min-width: 100%;
-      transition: transform 0.5s ease;
+      flex-shrink: 0;
+      height: 300px;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 2rem;
+      box-sizing: border-box;
     }
 
-    .carousel img {
-      width: 100%;
-      height: auto;
-      display: block;
+    .carousel-item a {
+      color: black;
+      font-weight: bold;
     }
 
-    .carousel-controls {
+    .carousel-control {
       position: absolute;
       top: 50%;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
       transform: translateY(-50%);
-    }
-
-    .carousel-button {
       background-color: rgba(0, 0, 0, 0.5);
-      color: white;
+      color: #fff;
       border: none;
       padding: 10px;
       cursor: pointer;
+    }
+
+    .carousel-control.prev {
+      left: 10px;
+    }
+
+    .carousel-control.next {
+      right: 10px;
+    }
+
+    /* 本文 */
+    .content {
+      padding: 20px;
+      font-size: 1rem;
+      line-height: 1.6;
     }
 
     /* フッター */
@@ -117,82 +158,69 @@
       color: #fffffc;
       padding: 20px;
       text-align: center;
-      font-size: 1em;
+      font-size: 0.9rem;
     }
 
     footer a {
       color: #fffffc;
-      text-decoration: none;
-      margin: 0 10px;
-      transition: color 0.3s ease;
     }
 
     footer a:hover {
-      color: #f1c6d9;
+      text-decoration: underline;
     }
 
-    /* メディアクエリ */
-    @media (max-width: 1200px) {
-      header h1 {
-        font-size: 1.4em;
-      }
-
-      nav a {
-        font-size: 1em;
-      }
-    }
-
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 15px;
-      }
-
-      nav {
-        display: none;
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-      }
-
-      nav a {
-        font-size: 1.2em;
-        width: 100%;
-        text-align: left;
-        padding: 10px;
-      }
-
-      .menu-toggle {
-        display: flex;
-      }
-
-      .carousel {
-        margin-top: 120px;
+    /* レスポンシブ調整 */
+    @media (max-width: 240px) {
+      body {
+        font-size: 12px;
       }
     }
 
     @media (max-width: 480px) {
-      header {
-        padding: 10px;
-      }
-
       header h1 {
-        font-size: 1.2em;
+        font-size: 1.2rem;
       }
 
-      nav a {
-        font-size: 1em;
+      .carousel-item {
+        font-size: 1.5rem;
+      }
+
+      .content {
+        font-size: 0.9rem;
       }
     }
 
-    @media (max-width: 240px) {
+    @media (max-width: 768px) {
       header h1 {
-        font-size: 1em;
+        font-size: 1.3rem;
       }
 
-      nav a {
-        font-size: 0.9em;
+      .carousel-item {
+        font-size: 1.8rem;
+      }
+
+      .content {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 1200px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      .carousel-item {
+        font-size: 2rem;
+      }
+    }
+
+    @media (min-width: 1201px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+
+      .carousel-item {
+        font-size: 2.5rem;
       }
     }
   </style>
@@ -201,105 +229,89 @@
 
   <!-- ヘッダー -->
   <header>
-    <h1>Responsive Web</h1>
-    <div class="menu-toggle" id="menu-toggle">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+    <h1>ナマイキスタジオ</h1>
     <nav id="nav">
       <a href="#">ホーム</a>
       <a href="#">サービス</a>
       <a href="#">お問い合わせ</a>
-      <a href="#">ブログ</a>
+      <a href="#">会社情報</a>
     </nav>
+    <button class="menu-toggle" id="menuToggle">&#9776;</button>
   </header>
 
   <!-- クルーセル -->
   <div class="carousel">
-    <div class="carousel-item">
-      <a href="#"><img src="https://via.placeholder.com/1200x500" alt="Image 1"></a>
+    <div class="carousel-items">
+      <div class="carousel-item">
+        <a href="#">リンク1</a>
+      </div>
+      <div class="carousel-item">
+        <a href="#">リンク2</a>
+      </div>
+      <div class="carousel-item">
+        <a href="#">リンク3</a>
+      </div>
+      <div class="carousel-item">
+        <a href="#">リンク4</a>
+      </div>
     </div>
-    <div class="carousel-item">
-      <a href="#"><img src="https://via.placeholder.com/1200x500" alt="Image 2"></a>
-    </div>
-    <div class="carousel-item">
-      <a href="#"><img src="https://via.placeholder.com/1200x500" alt="Image 3"></a>
-    </div>
-    <div class="carousel-item">
-      <a href="#"><img src="https://via.placeholder.com/1200x500" alt="Image 4"></a>
-    </div>
-
-    <div class="carousel-controls">
-      <button class="carousel-button" id="prev">←</button>
-      <button class="carousel-button" id="next">→</button>
-    </div>
+    <button class="carousel-control prev" onclick="moveCarousel(-1)">&#10094;</button>
+    <button class="carousel-control next" onclick="moveCarousel(1)">&#10095;</button>
   </div>
 
   <!-- 本文 -->
-  <main style="padding: 20px;">
-    <h2>サイトの説明</h2>
-    <p>ここにサイトの紹介や内容が入ります。レスポンシブ対応のデザインで、スマートフォン、タブレット、PCなど、さまざまなデバイスに対応しています。</p>
-  </main>
+  <div class="content">
+    <h2>本文タイトル</h2>
+    <p>ここに本文内容を記載します。適当な内容を入れておきます。</p>
+    <p>続きの内容...</p>
+  </div>
 
   <!-- フッター -->
   <footer>
-    <p>ページ閲覧回数: <span id="page-views">0</span> 回</p>
-    <p>現在時刻: <span id="current-time"></span></p>
+    <p>ページ閲覧回数: <span id="pageViews">0</span></p>
+    <p>現在時刻: <span id="currentTime"></span></p>
     <nav>
-      <a href="#">プライバシーポリシー</a>
-      <a href="#">利用規約</a>
-      <a href="#">サイトマップ</a>
+      <a href="#">ホーム</a> | 
+      <a href="#">サービス</a> | 
+      <a href="#">お問い合わせ</a>
     </nav>
-    <p>制作: アンの社畜D</p>
+    <p>制作者: アンの社畜D</p>
   </footer>
 
   <script>
-    // メニュートグルの動作
-    const menuToggle = document.getElementById('menu-toggle');
-    const nav = document.getElementById('nav');
-    
-    menuToggle.addEventListener('click', () => {
-      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    // メニューのトグル
+    document.getElementById('menuToggle').addEventListener('click', function() {
+      document.getElementById('nav').classList.toggle('active');
     });
 
-    // クルーセルの操作ボタン
-    let currentIndex = 0;
-    const carouselItems = document.querySelectorAll('.carousel-item');
-    const prevButton = document.getElementById('prev');
-    const nextButton = document.getElementById('next');
+    // クルーセルのスライド
+    let currentSlide = 0;
 
-    function updateCarousel() {
-      const offset = -currentIndex * 100;
-      carouselItems.forEach(item => {
-        item.style.transform = `translateX(${offset}%)`;
-      });
+    function moveCarousel(direction) {
+      const items = document.querySelector('.carousel-items');
+      const totalSlides = document.querySelectorAll('.carousel-item').length;
+      currentSlide += direction;
+      if (currentSlide < 0) currentSlide = totalSlides - 1;
+      if (currentSlide >= totalSlides) currentSlide = 0;
+      items.style.transform = `translateX(-${currentSlide * 100}%)`;
     }
 
-    prevButton.addEventListener('click', () => {
-      currentIndex = (currentIndex > 0) ? currentIndex - 1 : carouselItems.length - 1;
-      updateCarousel();
-    });
-
-    nextButton.addEventListener('click', () => {
-      currentIndex = (currentIndex < carouselItems.length - 1) ? currentIndex + 1 : 0;
-      updateCarousel();
-    });
-
     // ページ閲覧回数
-    let views = localStorage.getItem('views') || 0;
-    views++;
-    localStorage.setItem('views', views);
-    document.getElementById('page-views').textContent = views;
+    let pageViews = localStorage.getItem('pageViews') || 0;
+    pageViews++;
+    localStorage.setItem('pageViews', pageViews);
+    document.getElementById('pageViews').textContent = pageViews;
 
     // 現在時刻
     function updateTime() {
       const now = new Date();
-      document.getElementById('current-time').textContent = now.toLocaleString();
+      const time = now.toLocaleString();
+      document.getElementById('currentTime').textContent = time;
     }
 
     setInterval(updateTime, 1000);
-    updateTime(); // 初期表示
+    updateTime(); // 初期化
   </script>
+
 </body>
 </html>
