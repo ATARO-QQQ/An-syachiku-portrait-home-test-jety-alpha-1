@@ -37,6 +37,7 @@
         .menu {
             display: flex;
             gap: 20px;
+            flex-wrap: wrap;
         }
 
         .menu a {
@@ -54,7 +55,19 @@
 
         /* メニューバーが表示される際のスタイル */
         .menu.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            background-color: #180614;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow: hidden;
+            max-height: 400px; /* メニューの高さを制限 */
+            transition: max-height 0.3s ease;
         }
 
         /* クルーセル */
@@ -63,6 +76,7 @@
             overflow: hidden;
             width: 100%;
             margin-top: 80px; /* ヘッダーの下に表示するため */
+            position: relative;
         }
 
         .carousel-item {
@@ -142,6 +156,10 @@
                 background-color: #180614;
                 width: 100%;
                 padding: 10px;
+                box-sizing: border-box;
+                overflow: hidden;
+                max-height: 400px;
+                transition: max-height 0.3s ease;
             }
 
             .menu-toggle {
