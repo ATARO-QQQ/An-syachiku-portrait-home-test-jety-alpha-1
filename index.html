@@ -108,7 +108,22 @@
         }
 
         /* レスポンシブデザイン */
-        @media (max-width: 768px) {
+        @media (max-width: 240px) {
+            header h1 {
+                font-size: 1em;
+            }
+
+            .menu a {
+                font-size: 0.8em;
+            }
+
+            .carousel-item {
+                width: 70%; /* より狭い画面で調整 */
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 480px) {
             header h1 {
                 font-size: 1.2em;
             }
@@ -121,6 +136,12 @@
                 display: flex;
                 flex-direction: column;
                 gap: 15px;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                background-color: #180614;
+                width: 100%;
+                padding: 10px;
             }
 
             .menu-toggle {
@@ -133,13 +154,43 @@
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
             header h1 {
+                font-size: 1.4em;
+            }
+
+            .menu a {
                 font-size: 1em;
             }
 
-            .carousel {
-                margin-top: 60px; /* ヘッダーの高さを考慮 */
+            .carousel-item {
+                width: 75%; /* スマホサイズより少し広め */
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            header h1 {
+                font-size: 1.6em;
+            }
+
+            .carousel-item {
+                width: 80%; /* タブレットサイズ向け */
+                margin: 0 auto;
+            }
+        }
+
+        @media (min-width: 1201px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .menu a {
+                font-size: 1.2em;
+            }
+
+            .carousel-item {
+                width: 25%; /* デスクトップ向け */
             }
         }
     </style>
