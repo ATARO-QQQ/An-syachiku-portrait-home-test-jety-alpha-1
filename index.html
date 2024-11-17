@@ -1,276 +1,284 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ナマイキデザイン</title>
-  <style>
-    /* 全体のリセット */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ナマイキデザイン</title>
+    <style>
+        /* 基本的なスタイル */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #fffffc;
+        }
 
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fffffc;
-    }
+        /* ヘッダー */
+        header {
+            background-color: #180614;
+            color: #fffffc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
 
-    /* ヘッダー */
-    header {
-      background-color: #180614;
-      color: #fffffc;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 1000;
-    }
+        .logo {
+            font-size: 24px;
+        }
 
-    header .logo {
-      font-size: 1.5em;
-    }
+        nav {
+            display: flex;
+            gap: 20px;
+        }
 
-    header nav {
-      display: flex;
-      gap: 20px;
-    }
+        nav a {
+            color: #fffffc;
+            text-decoration: none;
+            padding: 8px;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-    header nav a {
-      color: #fffffc;
-      text-decoration: none;
-      padding: 10px;
-      transition: background-color 0.3s, color 0.3s;
-    }
+        nav a:hover {
+            background-color: #83ccd2;
+            color: #180614;
+        }
 
-    header nav a:hover {
-      background-color: #83ccd2;
-      color: #180614;
-    }
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
 
-    /* メニュートグル */
-    .menu-toggle {
-      display: none;
-      background-color: #fffffc;
-      border: none;
-      padding: 10px;
-      cursor: pointer;
-    }
+        .menu-toggle div {
+            width: 25px;
+            height: 3px;
+            background-color: #fffffc;
+        }
 
-    /* クルーセル */
-    .carousel-container {
-      position: relative;
-      width: 100%;
-      max-width: 1200px;
-      margin: 80px auto;
-      overflow: hidden;
-    }
+        /* クルーセル */
+        .carousel-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-top: 80px; /* ヘッダー分のスペース */
+        }
 
-    .carousel {
-      display: flex;
-      transition: transform 0.5s ease;
-    }
+        .carousel {
+            display: flex;
+            overflow: hidden;
+            width: 90%;
+            max-width: 1200px;
+            position: relative;
+        }
 
-    .carousel img {
-      width: 100%;
-      object-fit: cover;
-    }
+        .carousel-slide {
+            min-width: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
 
-    .carousel a {
-      display: block;
-      width: 100%;
-    }
+        .carousel img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
 
-    .carousel-control {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: rgba(0, 0, 0, 0.5);
-      color: white;
-      border: none;
-      padding: 10px;
-      cursor: pointer;
-      z-index: 10;
-    }
+        .carousel button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
 
-    .carousel-control.left {
-      left: 0;
-    }
+        .carousel .prev {
+            left: 10px;
+        }
 
-    .carousel-control.right {
-      right: 0;
-    }
+        .carousel .next {
+            right: 10px;
+        }
 
-    /* 本文 */
-    .content {
-      padding: 20px;
-      text-align: center;
-    }
+        /* メディアクエリ */
+        @media (max-width: 480px) {
+            nav {
+                display: none;
+                flex-direction: column;
+                gap: 10px;
+                position: absolute;
+                right: 20px;
+                top: 60px;
+                background-color: #180614;
+                padding: 20px;
+                border-radius: 8px;
+            }
 
-    .content h2 {
-      font-size: 1.8em;
-      margin-bottom: 20px;
-    }
+            nav a {
+                padding: 12px;
+                font-size: 14px;
+            }
 
-    .content p {
-      font-size: 1.2em;
-    }
+            .menu-toggle {
+                display: flex;
+            }
 
-    /* フッター */
-    footer {
-      background-color: #180614;
-      color: #fffffc;
-      padding: 20px;
-      text-align: center;
-    }
+            header {
+                justify-content: space-between;
+            }
 
-    footer p {
-      margin-bottom: 10px;
-    }
+            .carousel-container {
+                margin-top: 60px;
+            }
 
-    footer a {
-      color: #fffffc;
-      text-decoration: none;
-    }
+            .carousel img {
+                height: auto;
+                object-fit: cover;
+            }
+        }
 
-    footer a:hover {
-      color: #83ccd2;
-    }
+        @media (max-width: 768px) {
+            .carousel-container {
+                margin-top: 100px;
+            }
+        }
 
-    /* レスポンシブデザイン */
-    @media (max-width: 1200px) {
-      .carousel img {
-        width: 75%;
-      }
-    }
+        @media (min-width: 1201px) {
+            .carousel {
+                max-width: 1200px;
+            }
+        }
 
-    @media (max-width: 768px) {
-      header nav {
-        display: none;
-      }
+        /* フッター */
+        footer {
+            background-color: #180614;
+            color: #fffffc;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
 
-      .menu-toggle {
-        display: block;
-      }
-
-      .menu-active nav {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .carousel img {
-        width: 100%;
-      }
-
-      .carousel-container {
-        max-width: 100%;
-      }
-    }
-
-    @media (max-width: 480px) {
-      header .logo {
-        font-size: 1.2em;
-      }
-
-      .carousel img {
-        width: 100%;
-      }
-
-      .content h2 {
-        font-size: 1.5em;
-      }
-
-      .content p {
-        font-size: 1em;
-      }
-    }
-
-    @media (max-width: 240px) {
-      .carousel img {
-        width: 100%;
-      }
-
-      .content h2 {
-        font-size: 1.2em;
-      }
-
-      .content p {
-        font-size: 0.9em;
-      }
-    }
-  </style>
+        footer a {
+            color: #fffffc;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-  <!-- ヘッダー -->
-  <header>
+
+<!-- ヘッダー -->
+<header>
     <div class="logo">ナマイキデザイン</div>
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
     <nav>
-      <a href="#">ホーム</a>
-      <a href="#">サービス</a>
-      <a href="#">ポートフォリオ</a>
-      <a href="#">お問い合わせ</a>
+        <a href="#">ホーム</a>
+        <a href="#">サービス</a>
+        <a href="#">ギャラリー</a>
+        <a href="#">お問い合わせ</a>
     </nav>
-  </header>
-
-  <!-- クルーセル -->
-  <div class="carousel-container">
-    <div class="carousel">
-      <a href="#"><img src="https://via.placeholder.com/1200x400" alt="スライド1"></a>
-      <a href="#"><img src="https://via.placeholder.com/1200x400" alt="スライド2"></a>
-      <a href="#"><img src="https://via.placeholder.com/1200x400" alt="スライド3"></a>
-      <a href="#"><img src="https://via.placeholder.com/1200x400" alt="スライド4"></a>
+    <div class="menu-toggle">
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
-    <button class="carousel-control left" onclick="moveSlide(-1)">&#10094;</button>
-    <button class="carousel-control right" onclick="moveSlide(1)">&#10095;</button>
-  </div>
+</header>
 
-  <!-- 本文 -->
-  <div class="content">
-    <h2>ナマイキデザインへようこそ</h2>
-    <p>ナマイキデザインは、動画や画像など、様々な撮影の手助けをする団体です。私たちは、クライアントのニーズに合わせたクリエイティブな制作物を提供します。</p>
-  </div>
+<!-- クルーセル -->
+<div class="carousel-container">
+    <div class="carousel">
+        <div class="carousel-slide">
+            <a href="https://example.com/1"><img src="https://via.placeholder.com/1200x600/ff7f7f/333333?text=Slide+1" alt="スライド1"></a>
+        </div>
+        <div class="carousel-slide">
+            <a href="https://example.com/2"><img src="https://via.placeholder.com/1200x600/7fc8ff/333333?text=Slide+2" alt="スライド2"></a>
+        </div>
+        <div class="carousel-slide">
+            <a href="https://example.com/3"><img src="https://via.placeholder.com/1200x600/fffc7f/333333?text=Slide+3" alt="スライド3"></a>
+        </div>
+        <div class="carousel-slide">
+            <a href="https://example.com/4"><img src="https://via.placeholder.com/1200x600/7fff7f/333333?text=Slide+4" alt="スライド4"></a>
+        </div>
+        <button class="prev">&lt;</button>
+        <button class="next">&gt;</button>
+    </div>
+</div>
 
-  <!-- フッター -->
-  <footer>
-    <p>ページ閲覧回数: <span id="view-count">0</span></p>
+<!-- 本文 -->
+<main>
+    <section>
+        <h1>ナマイキデザイン</h1>
+        <p>ナマイキデザインは、動画や画像など、様々な撮影の手助けをする団体です。</p>
+        <p>私たちは、最高のコンテンツを提供するために日々努力しています。プロフェッショナルなチームが、あらゆるニーズに応えます。</p>
+    </section>
+</main>
+
+<!-- フッター -->
+<footer>
+    <p>閲覧回数: <span id="page-views">0</span>回</p>
     <p>現在時刻: <span id="current-time"></span></p>
+    <p><a href="#">ナマイキデザインについて</a></p>
     <p>制作者: アンの社畜D</p>
-    <p><a href="#">プライバシーポリシー</a> | <a href="#">利用規約</a></p>
-  </footer>
+</footer>
 
-  <script>
-    // メニュートグル
-    function toggleMenu() {
-      document.querySelector('header').classList.toggle('menu-active');
-    }
+<script>
+    // メニューのトグル
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('nav');
+    
+    menuToggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+    });
 
-    // クルーセル
-    let currentIndex = 0;
+    // ページ閲覧回数のカウント
+    let pageViews = 0;
+    const pageViewsElement = document.getElementById('page-views');
+    pageViews = localStorage.getItem('pageViews') ? parseInt(localStorage.getItem('pageViews')) : 0;
+    pageViews++;
+    localStorage.setItem('pageViews', pageViews);
+    pageViewsElement.textContent = pageViews;
 
-    function moveSlide(direction) {
-      const slides = document.querySelectorAll('.carousel a');
-      const totalSlides = slides.length;
-      currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
-      document.querySelector('.carousel').style.transform = `translateX(-${100 * currentIndex}%)`;
-    }
-
-    // ページ閲覧回数
-    let viewCount = 0;
-    document.getElementById('view-count').textContent = ++viewCount;
-
-    // 現在時刻
-    function updateTime() {
-      const now = new Date();
-      document.getElementById('current-time').textContent = now.toLocaleTimeString();
-    }
+    // 現在時刻の表示
+    const currentTimeElement = document.getElementById('current-time');
+    const updateTime = () => {
+        const now = new Date();
+        currentTimeElement.textContent = now.toLocaleString();
+    };
+    updateTime();
     setInterval(updateTime, 1000);
-  </script>
+
+    // クルーセルの自動スライド
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const totalSlides = slides.length;
+    
+    const showSlide = (index) => {
+        const offset = -index * 100;
+        document.querySelector('.carousel').style.transform = `translateX(${offset}%)`;
+    };
+
+    document.querySelector('.next').addEventListener('click', () => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        showSlide(currentSlide);
+    });
+
+    document.querySelector('.prev').addEventListener('click', () => {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        showSlide(currentSlide);
+    });
+
+    setInterval(() => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        showSlide(currentSlide);
+    }, 5000);
+</script>
+
 </body>
 </html>
